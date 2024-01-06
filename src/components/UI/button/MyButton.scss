@@ -1,18 +1,16 @@
 @import '../../../style/vars';
+@import '../../../style/template';
 
 .btn {
-    padding: 5px 15px;
     color: $white;
-    font-size: 14px;
     background: $violet;
-    // border: 1px solid #646cff;
     border: none;
-    cursor: pointer;
+    @include button;
 }
 
 .btn:hover {
     border-color: #646cff;
-    background-color: rgb(130, 130, 221);
+    background-color: rgb(226, 161, 252);
 }
 
 .btn:focus,

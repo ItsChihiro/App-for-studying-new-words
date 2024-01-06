@@ -7,8 +7,8 @@ export default function TableRow(props) {
     if (isEdit) return (
         <tr>
             <td><input type="text" defaultValue={english} /></td>
-            <td><input value={transcription} /></td>
-            <td><input value={russian} /></td>
+            <td><input defaultValue={transcription} /></td>
+            <td><input defaultValue={russian} /></td>
             <td className="actions">
                 <button className="save-btn">Save</button>
                 <button><img src={editImg} alt="Edit" /></button>

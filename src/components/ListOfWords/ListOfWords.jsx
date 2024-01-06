@@ -2,15 +2,12 @@ import TableRow from '../TableRow/TableRow';
 import './ListOfWords.scss'
 
 export default function ListOfWords({ words }) {
-    let isEdit = false
+    let isEdit = true
     const rows = words.map((row) => {
         return <TableRow
             {...row}
             key={row.id}
             isEdit={isEdit}
-        // english={row.english}
-        // transcription={row.transcription}
-        // russian={row.russian}
         />
     })
 
