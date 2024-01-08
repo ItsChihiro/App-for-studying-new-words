@@ -1,5 +1,5 @@
 import React from 'react';
-import WordCard from '../WordCard/WordCard';
+import WordCard from '../CardOfWord/CardOfWord';
 
 function Cards({ words }) {
     const cards = words.map((card) => {

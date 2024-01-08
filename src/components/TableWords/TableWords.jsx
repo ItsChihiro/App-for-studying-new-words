@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import TableRow from '../TableRow/TableRow';
-import './ListOfWords.scss'
+import './TableWords.scss'
 
 export default function ListOfWords({ words }) {
-    let isEdit = true
+
     const rows = words.map((row) => {
         return <TableRow
             {...row}
             key={row.id}
-            isEdit={isEdit}
         />
     })
 

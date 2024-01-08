@@ -43,6 +43,12 @@ input {
     border: 1px solid $violet;
     border-radius: 5px;
     font-family: $font-1;
+    font-size: 14px;
+}
+
+input:focus {
+    background-color: $blue2;
+    border: none;
 }
 
 .actions {
@@ -58,6 +64,10 @@ input {
         @include button;
         border-image-slice: 1;
         border-image-source: linear-gradient(to left, rgb(68, 228, 228), #3ad5a6);
+    }
+
+    .save-btn:hover {
+        background-color: $blue2;
     }
 
     button {

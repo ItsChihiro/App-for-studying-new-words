@@ -1,7 +1,7 @@
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import cl from './App.module.css'
-import ListOfWords from '../ListOfWords/ListOfWords'
+import ListOfWords from '../TableWords/TableWords'
 import { words } from '../constants'
 import Cards from '../Cards/Cards'
 
