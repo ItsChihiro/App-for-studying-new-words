@@ -1,6 +1,6 @@
 import { useState } from "react";
-import MyButton from "../UI/button/MyButton";
 import editImg from '../../assets/images/edit.png'
+import cancelImg from '../../assets/images/cancel.png'
 import removeImg from '../../assets/images/remove.png'
 
 export default function TableRow(props) {
@@ -19,6 +19,14 @@ export default function TableRow(props) {
     const [transcriptionValue, setTranscriptionValue] = useState(transcription)
     const [translationValue, setTranslationValue] = useState(russian)
 
+    //функция закрывает редактирование, все поля возвращаются к изначальному значению
+    function cancelEditing() {
+        setWordValue(english)
+        setTranscriptionValue(transcription)
+        setTranslationValue(russian)
+        handleEditing()
+    }
+
     if (edit) return (
         <tr>
             <td><input type="text" value={wordValue} onChange={event => setWordValue(event.target.value)} /></td>
@@ -26,11 +34,12 @@ export default function TableRow(props) {
             <td><input value={translationValue} onChange={event => setTranslationValue(event.target.value)} /></td>
             <td className="actions">
                 <button className="save-btn">Save</button>
-                <button><img src={editImg} alt="Edit" onClick={handleEditing} /></button>
+                <button><img src={cancelImg} alt="Cancel" onClick={cancelEditing} title="Cancel" /></button>
                 <button><img src={removeImg} alt="Remove" title="Remove" /></button>
             </td>
         </tr >
     )
+
     else return (
         <tr>
             <td>{english}</td>

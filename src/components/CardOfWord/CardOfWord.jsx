@@ -3,7 +3,7 @@ import './CardOfWord.scss'
 import MyButton from '../UI/button/MyButton';
 
 export default function WordCard(props) {
-    const { id, english, transcription, russian, tags } = props;
+    const { english, transcription, russian } = props;
 
     const [translation, setTranslation] = useState(false)
     function handleTranlation() {

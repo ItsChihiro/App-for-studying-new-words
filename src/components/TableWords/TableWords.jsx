@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import TableRow from '../TableRow/TableRow';
 import './TableWords.scss'
 
