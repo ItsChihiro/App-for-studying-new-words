@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './CardOfWord.scss'
 import MyButton from '../UI/button/MyButton';
 
-export default function WordCard(props) {
-    const { english, transcription, russian } = props;
+export default function CardOfWord(props) {
+    const { id, english, transcription, russian } = props;
 
     const [translation, setTranslation] = useState(false)
     function handleTranlation() {
         setTranslation(!translation)
     }
+
+    useEffect(() => {
+        setTranslation(false)
+    }, [id])
 
     return (
         <div className="card">

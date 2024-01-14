@@ -1,9 +1,8 @@
-import React from 'react';
-import WordCard from '../CardOfWord/CardOfWord';
+import CardOfWord from "../CardOfWord/CardOfWord";
 
 function Cards({ words }) {
     const cards = words.map((card) => {
-        return <WordCard
+        return <CardOfWord
             {...card}
             key={card.id}
         />
