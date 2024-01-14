@@ -14,7 +14,6 @@ export default function TableRow(props) {
     }
 
     //Состояние инпутов
-    // const [value, setValue] = useState('')
     const [wordValue, setWordValue] = useState(english)
     const [transcriptionValue, setTranscriptionValue] = useState(transcription)
     const [translationValue, setTranslationValue] = useState(russian)
