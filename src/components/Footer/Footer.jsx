@@ -1,16 +1,13 @@
 import './Footer.scss'
-import MyButton from '../UI/button/MyButton';
 import logo from '../../assets/images/logo.png'
+import { Link } from 'react-router-dom';
 
-export default function Footer(props) {
+export default function Footer() {
     return (
         <footer>
-            <div className='buttons'>
-                <MyButton>Режим тренировки</MyButton>
-            </div>
             <div className='footer-info'>
                 <div>
-                    <a href="#"><img src={logo} alt="logo" className="logo" /></a>
+                    <Link to="/"><img src={logo} alt="logo" className="logo-img" /></Link>
                 </div>
                 <div className="copyright">
                     <p>Copyright &copy; 2024</p>
