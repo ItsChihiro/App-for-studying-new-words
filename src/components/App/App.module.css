@@ -17,6 +17,14 @@
   width: 100vw;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding: 80px 0 10px 0;
+}
+
 .logo {
   height: 40px;
   width: 40px;
