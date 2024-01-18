@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { words } from '../constants'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import style from './Slider.module.scss'
 import CardOfWord from '../CardOfWord/CardOfWord';
 
 //бесконечный слайдер
-export default function Slider() {
+export default function Slider({ words }) {
     const [wordIndex, setWordIndex] = useState(0);
     const [word, setWord] = useState(words[0])
 
@@ -22,13 +21,16 @@ export default function Slider() {
     };
 
     return (
-        <div className={style.container}>
-            <div className={style.slide}>
-                <FaChevronLeft className={style.arrow} onClick={handlePreviousCard} />
-                <CardOfWord {...word} />
-                <FaChevronRight className={style.arrow} onClick={handleNextCard} />
+        <>
+            <div className={style.container}>
+                <h2>Word-learning simulator</h2>
+                <div className={style.slide}>
+                    <FaChevronLeft className={style.arrow} onClick={handlePreviousCard} />
+                    <CardOfWord {...word} />
+                    <FaChevronRight className={style.arrow} onClick={handleNextCard} />
+                </div>
+                <div><div>{wordIndex + 1}/{words.length}</div></div>
             </div>
-            <div><div>{wordIndex + 1}/{words.length}</div></div>
-        </div>
+        </>
     );
 }
