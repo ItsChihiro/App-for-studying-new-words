@@ -5,12 +5,12 @@ import Slider from '../Slider/Slider'
 import TableWords from '../TableWords/TableWords'
 import { words } from '../constants'
 
-export { Home, Game, Error } from '../../pages'
+import { Error } from '../../pages'
+
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 
 export default function App() {
