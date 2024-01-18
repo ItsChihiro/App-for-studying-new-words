@@ -1,21 +1,37 @@
 import './Header.scss'
 import logo from '../../assets/images/logo.png'
+import { Link } from 'react-router-dom';
 
-export default function Header(props) {
+export default function Header() {
+    let isLogin = false;
+
     return (
-        <header>
-            <div className="first-block header__block">
-                <div>
-                    <a href="#"><img src={logo} alt="logo" className="logo" /></a>
-                </div>
-                <div className="login">
-                    <a href="#" className="login-link">Log In</a>
-                </div>
-            </div>
-            <div className="second-block header__block">
-                <div className="logout">
-                    <a href="#" className="logout-link">Log Out</a>
-                </div>
+        <header className='header'>
+            <div className="header__container">
+                <nav className='header__nav'>
+                    <ul className="left-block">
+                        <li>
+                            <Link to="/" className='logo'><img src={logo} alt="logo" className="logo-img" />App</Link>
+                        </li>
+                    </ul>
+
+                    <ul className="middle-block">
+                        <li>
+                            <Link to='/game' className="game">Flashcards</Link>
+                        </li>
+                    </ul>
+
+                    <ul className="right-block">
+                        {isLogin
+                            ? <li className="logout">
+                                <a href="#" className="logout-link">Log Out</a>
+                            </li>
+                            : <li className="login">
+                                <a href="#" className="login-link">Log In</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
             </div>
         </header>
     );
