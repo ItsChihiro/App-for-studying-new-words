@@ -4,7 +4,7 @@ import cancelImg from '../../assets/images/cancel.png'
 import removeImg from '../../assets/images/remove.png'
 
 export default function TableRow(props) {
-    const { id, english, transcription, russian, tags } = props;
+    const { english, transcription, russian } = props;
 
     //Состояние кнопки Edit
     const [edit, setEdit] = useState(false)

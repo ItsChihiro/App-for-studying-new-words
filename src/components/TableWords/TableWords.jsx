@@ -1,7 +1,7 @@
 import TableRow from '../TableRow/TableRow';
 import './TableWords.scss'
 
-export default function ListOfWords({ words }) {
+export default function TableWords({ words }) {
 
     const rows = words.map((row) => {
         return <TableRow
