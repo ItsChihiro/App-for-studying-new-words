@@ -1,6 +1,6 @@
 import './Header.scss'
 import logo from '../../assets/images/logo.png'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Header() {
     let isLogin = false;
@@ -11,23 +11,23 @@ export default function Header() {
                 <nav className='header__nav'>
                     <ul className="left-block">
                         <li>
-                            <Link to="/" className='logo'><img src={logo} alt="logo" className="logo-img" />App</Link>
+                            <NavLink to="/" className='logo'><img src={logo} alt="logo" className="logo-img" />App</NavLink>
                         </li>
                     </ul>
 
                     <ul className="middle-block">
                         <li>
-                            <Link to='/game' className="game">Flashcards</Link>
+                            <NavLink to='/game' className="game">Flashcards</NavLink>
                         </li>
                     </ul>
 
                     <ul className="right-block">
                         {isLogin
                             ? <li className="logout">
-                                <a href="#" className="logout-link">Log Out</a>
+                                <Link to="#" className="logout-link">Log Out</Link>
                             </li>
                             : <li className="login">
-                                <a href="#" className="login-link">Log In</a>
+                                <Link to="#" className="login-link">Log In</Link>
                             </li>
                         }
                     </ul>
