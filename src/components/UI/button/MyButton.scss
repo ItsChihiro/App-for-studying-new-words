@@ -15,5 +15,6 @@
 
 .btn:focus,
 .btn:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    outline: 1px auto rgb(100, 57, 100);
+    background-color: rgb(226, 161, 252);
 }

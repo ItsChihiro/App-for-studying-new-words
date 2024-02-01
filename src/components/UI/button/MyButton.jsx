@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React, { forwardRef } from 'react';
 import './MyButton.scss'
 
-export default function MyButton({ children, ...props }) {
-    // const [pressed, setPressed] = useState(false)
-    // const handlePress = () => {
-    //     setPressed(!pressed)
-    // }
+const MyButton = forwardRef(({ children, ...props }, ref) => {
     return (
         <div>
-            <button {...props} className='btn'>
+            <button {...props} ref={ref} className='btn'>
                 {children}
             </button>
         </div>
     );
-}
+});
 
+
+export default MyButton;
