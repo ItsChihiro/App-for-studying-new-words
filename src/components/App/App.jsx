@@ -5,7 +5,7 @@ import Slider from '../Slider/Slider'
 import TableWords from '../TableWords/TableWords'
 import { words } from '../constants'
 
-import { Error } from '../../pages'
+import { Error, Game } from '../../pages'
 
 import {
   BrowserRouter as Router,
@@ -15,19 +15,19 @@ import {
 
 export default function App() {
   return (
-    <div className={cl.App}>
-      <Router>
+    <Router>
+      <div className={cl.App}>
         <Header />
         <main>
           <Routes>
             <Route path='/' element={<TableWords words={words} />} />
-            <Route path='/game' element={<Slider words={words} />} />
+            <Route path='/game' element={<Game words={words} />} />
             <Route path='*' element={<Error />} />
           </Routes>
         </main>
         <Footer />
-      </Router>
-    </div>
+      </div>
+    </Router>
   )
 }
 
