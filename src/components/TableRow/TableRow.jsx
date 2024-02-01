@@ -39,7 +39,7 @@ export default function TableRow(props) {
         </tr >
     )
 
-    else return (
+    return (
         <tr>
             <td>{english}</td>
             <td>{transcription}</td>

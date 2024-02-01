@@ -1,3 +1,4 @@
+import { useState } from "react";
 import CardOfWord from "../CardOfWord/CardOfWord";
 
 function Cards({ words }) {
@@ -7,6 +8,7 @@ function Cards({ words }) {
             key={card.id}
         />
     })
+
     return (
         <div className="cards-container">
             <div className='cards-wrapper'>{cards}</div>

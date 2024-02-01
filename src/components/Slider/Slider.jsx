@@ -23,7 +23,6 @@ export default function Slider({ words }) {
     return (
         <>
             <div className={style.container}>
-                <h2>Word-learning simulator</h2>
                 <div className={style.slide}>
                     <FaChevronLeft className={style.arrow} onClick={handlePreviousCard} />
                     <CardOfWord {...word} />
