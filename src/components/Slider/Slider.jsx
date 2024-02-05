@@ -6,7 +6,7 @@ import CardOfWord from '../CardOfWord/CardOfWord';
 //бесконечный слайдер
 export default function Slider({ words }) {
     const [wordIndex, setWordIndex] = useState(0);
-    const [word, setWord] = useState(words[0])
+    const [word, setWord] = useState(words[0]);
 
     const handleNextCard = () => {
         const index = (wordIndex + 1) % words.length;
@@ -28,7 +28,7 @@ export default function Slider({ words }) {
                     <CardOfWord {...word} />
                     <FaChevronRight className={style.arrow} onClick={handleNextCard} />
                 </div>
-                <div><div>{wordIndex + 1}/{words.length}</div></div>
+                <div className={style.counter}><div>{wordIndex + 1}/{words.length}</div></div>
             </div>
         </>
     );
