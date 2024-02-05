@@ -1,17 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './CardOfWord.scss'
 import MyButton from '../UI/button/MyButton';
 
 export default function CardOfWord(props) {
     const { id, english, transcription, russian } = props;
+    //состояние, которое отвечает за показ перевода
+    const [isTranslation, setIsTranslation] = useState(false)
 
-    const [translation, setTranslation] = useState(false)
-    function handleTranlation() {
-        setTranslation(!translation)
+    //состояние отображает, сколько слов изучено за одну тренировку
+    const [learnedWordsCount, setLearnedWordsCount] = useState(0)
+
+    function handleTranlationClick() {
+        setIsTranslation(!isTranslation)
+        setLearnedWordsCount(learnedWordsCount + 1)
     }
 
+    const buttonRef = useRef(null);
     useEffect(() => {
-        setTranslation(false)
+        //Показываем кнопку при каждом изменении id
+        setIsTranslation(false)
+        // Фокусируем кнопку при каждом изменении id
+        if (buttonRef.current) {
+            buttonRef.current.focus();
+        }
     }, [id])
 
     return (
@@ -22,9 +33,9 @@ export default function CardOfWord(props) {
             </div>
 
             <div className="answer">
-                {translation
+                {isTranslation
                     ? <p className="card__translation">{russian}</p>
-                    : <MyButton onClick={handleTranlation}>Check</MyButton>
+                    : <MyButton ref={buttonRef} onClick={handleTranlationClick}>Check</MyButton>
                 }
             </div>
         </div>
