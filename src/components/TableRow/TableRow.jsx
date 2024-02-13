@@ -1,7 +1,8 @@
-import { useState } from "react";
-import editImg from '../../assets/images/edit.png'
-import cancelImg from '../../assets/images/cancel.png'
-import removeImg from '../../assets/images/remove.png'
+import { useState, useEffect } from "react";
+import editImg from '../../assets/images/edit.png';
+import cancelImg from '../../assets/images/cancel.png';
+import removeImg from '../../assets/images/remove.png';
+import Input from "../UI/input/Input";
 
 export default function TableRow(props) {
     const { english, transcription, russian } = props;
@@ -13,26 +14,60 @@ export default function TableRow(props) {
         setEdit(!edit)
     }
 
-    //Состояние инпутов
-    const [wordValue, setWordValue] = useState(english)
-    const [transcriptionValue, setTranscriptionValue] = useState(transcription)
-    const [translationValue, setTranslationValue] = useState(russian)
+    //Состояние кнопки Save
+    const [saveIsDisabled, setSaveIsDisabled] = useState(false)
 
-    //функция закрывает редактирование, все поля возвращаются к изначальному значению
+    // Состояние инпутов
+    const [state, setState] = useState({
+        wordValue: english,
+        transcriptionValue: transcription,
+        translationValue: russian
+    })
+
+    //Ввод данных в инпуты и обновление состояний
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setState({
+            ...state,
+            [e.target.name]: value
+        });
+    }
+
+    // Кнопка Отмены - функция закрывает редактирование, все поля возвращаются к изначальному значению
     function cancelEditing() {
-        setWordValue(english)
-        setTranscriptionValue(transcription)
-        setTranslationValue(russian)
+        setState({
+            wordValue: english,
+            transcriptionValue: transcription,
+            translationValue: russian
+        })
         handleEditing()
     }
 
+    // Кнопка сохранения
+    function saveEditing() {
+        //вывод параметров формы
+        console.log(state)
+        //закрытие формы
+        handleEditing()
+    }
+
+    //управление состоянием кнопки Save
+    useEffect(() => {
+        if (state.wordValue === '' || state.transcriptionValue === '' || state.translationValue === '') {
+            setSaveIsDisabled(true)
+        } else {
+            setSaveIsDisabled(false)
+        }
+    }, [state])
+
+
     if (edit) return (
         <tr>
-            <td><input type="text" value={wordValue} onChange={event => setWordValue(event.target.value)} /></td>
-            <td><input value={transcriptionValue} onChange={event => setTranscriptionValue(event.target.value)} /></td>
-            <td><input value={translationValue} onChange={event => setTranslationValue(event.target.value)} /></td>
+            <td><Input required name="wordValue" value={state.wordValue} onChange={handleChange} /></td>
+            <td><Input name="transcriptionValue" value={state.transcriptionValue} onChange={handleChange} /></td>
+            <td><Input name="translationValue" value={state.translationValue} onChange={handleChange} /></td>
             <td className="actions">
-                <button className="save-btn">Save</button>
+                <button className="save-btn" {...(saveIsDisabled && { 'disabled': true })} onClick={saveEditing}>Save</button>
                 <button><img src={cancelImg} alt="Cancel" onClick={cancelEditing} title="Cancel" /></button>
                 <button><img src={removeImg} alt="Remove" title="Remove" /></button>
             </td>
