@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
+import './Input.scss';
 
-function Input(props) {
+const Input = forwardRef(({ value, isError, ...props }, ref) => {
+    let inputClass = `input`
+    if (value === '') inputClass += ` input_red`;
+
     return (
-        <div>
-
-        </div>
-    );
-}
+        <input type="text" ref={ref} value={value} className={inputClass} {...props}>
+        </input>
+    )
+});
 
 export default Input;
