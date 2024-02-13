@@ -1,0 +1,27 @@
+@import '../../../style/vars';
+@import '../../../style/template';
+
+.input {
+    width: 90%;
+    height: 90%;
+    padding: 5px 15px;
+    margin: 5px 0;
+    border: 1px solid $violet;
+    border-radius: 5px;
+    font-family: $font-1;
+    font-size: 14px;
+}
+
+.input:focus {
+    background-color: $blue2;
+    border: none;
+}
+
+
+.input_red {
+    border: 2px solid $red;
+}
+
+// .input_red:focus {
+//     border: 2px solid $red;
+// }
