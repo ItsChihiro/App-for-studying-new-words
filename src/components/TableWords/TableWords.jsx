@@ -1,12 +1,16 @@
 import TableRow from '../TableRow/TableRow';
 import './TableWords.scss'
+import { useState } from 'react';
 
 export default function TableWords({ words }) {
+    const [wordsList, setWordsList] = useState(words)
 
-    const rows = words.map((row) => {
+    const rows = wordsList.map((row) => {
         return <TableRow
             {...row}
             key={row.id}
+            wordsList={wordsList}
+            setWordsList={setWordsList}
         />
     })
 
