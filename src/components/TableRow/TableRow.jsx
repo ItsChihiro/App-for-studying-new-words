@@ -24,12 +24,39 @@ export default function TableRow(props) {
         translationValue: russian
     })
 
+    const [isValid, setIsValid] = useState({
+        wordValue: true,
+        transcriptionValue: true,
+        translationValue: true
+    });
+
     //Ввод данных в инпуты и обновление состояний
     const handleChange = (e) => {
-        const value = e.target.value;
+        const { name, value } = e.target;
+        let isValidInput = true;
+
+        // Выполняем различные проверки в зависимости от поля ввода
+        switch (name) {
+            case 'wordValue':
+                // Валидация для английского слова: только латинские буквы и пробелы
+                isValidInput = /^[a-zA-Z\s]*$/.test(value);
+                break;
+            case 'transcriptionValue':
+                // Валидация транскрипции: только латинские буквы, пробелы, квадратные скобки и кавычки
+                isValidInput = /^[a-zA-Z\s!@#$%^&*(),.?":{}|<>_-]*$/.test(value);
+                break;
+            case 'translationValue':
+                // Валидация для перевода на русский: только кирилицца и пробелы
+                isValidInput = /^[а-яА-Я\s]*$/.test(value);
+                break;
+            default:
+                break;
+        }
+
+        setIsValid({ ...isValid, [name]: isValidInput });
         setState({
             ...state,
-            [e.target.name]: value
+            [name]: value
         });
     }
 
@@ -63,9 +90,18 @@ export default function TableRow(props) {
 
     if (edit) return (
         <tr>
-            <td><Input required name="wordValue" value={state.wordValue} onChange={handleChange} /></td>
-            <td><Input name="transcriptionValue" value={state.transcriptionValue} onChange={handleChange} /></td>
-            <td><Input name="translationValue" value={state.translationValue} onChange={handleChange} /></td>
+            <td>
+                <Input name="wordValue" value={state.wordValue} onChange={handleChange} />
+                {!isValid.wordValue && <p className="error-text">Only Latin letters and spaces are allowed!</p>}
+            </td>
+            <td>
+                <Input name="transcriptionValue" value={state.transcriptionValue} onChange={handleChange} />
+                {!isValid.transcriptionValue && <p className="error-text">Only Latin letters, spaces and special symbols are allowed!</p>}
+            </td>
+            <td>
+                <Input name="translationValue" value={state.translationValue} onChange={handleChange} />
+                {!isValid.translationValue && <p className="error-text">Only Cyrillic letters and spaces are allowed!</p>}
+            </td>
             <td className="actions">
                 <button className="save-btn" {...(saveIsDisabled && { 'disabled': true })} onClick={saveEditing}>Save</button>
                 <button><img src={cancelImg} alt="Cancel" onClick={cancelEditing} title="Cancel" /></button>
