@@ -7,15 +7,15 @@ import Input from "../UI/input/Input";
 export default function TableRow(props) {
     const { english, transcription, russian } = props;
 
-    //Состояние кнопки Edit
-    const [edit, setEdit] = useState(false)
+    // Состояние кнопки Edit
+    const [edit, setEdit] = useState(false);
 
     function handleEditing() {
-        setEdit(!edit)
+        setEdit(!edit);
     }
 
-    //Состояние кнопки Save
-    const [saveIsDisabled, setSaveIsDisabled] = useState(false)
+    // Состояние кнопки Save
+    const [saveIsDisabled, setSaveIsDisabled] = useState(false);
 
     // Состояние инпутов
     const [state, setState] = useState({
@@ -24,26 +24,41 @@ export default function TableRow(props) {
         translationValue: russian
     })
 
+    // Состояние, отвечающее за валидацию инпутов и показ ошибки
     const [isValid, setIsValid] = useState({
         wordValue: true,
         transcriptionValue: true,
         translationValue: true
     });
 
-    //Ввод данных в инпуты и обновление состояний
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        let isValidInput = true;
+    // Сброс состояния инпутов к изначальному
+    function resetInputsState() {
+        setState({
+            wordValue: english,
+            transcriptionValue: transcription,
+            translationValue: russian
+        });
+    }
 
-        // Выполняем различные проверки в зависимости от поля ввода
+    // Сброс состояния валидации инпутов
+    function resetIsValid() {
+        setIsValid({
+            wordValue: true,
+            transcriptionValue: true,
+            translationValue: true
+        });
+    }
+
+    // Ввод данных в инпуты и обновление состояний
+    const handleChange = (e) => {
+        let isValidInput = true;
+        const { name, value } = e.target;
+
+        // Выполнение проверок в зависимости от поля ввода
         switch (name) {
             case 'wordValue':
                 // Валидация для английского слова: только латинские буквы и пробелы
                 isValidInput = /^[a-zA-Z\s]*$/.test(value);
-                break;
-            case 'transcriptionValue':
-                // Валидация транскрипции: только латинские буквы, пробелы, квадратные скобки и кавычки
-                isValidInput = /^[a-zA-Z\s!@#$%^&*(),.?":{}|<>_-]*$/.test(value);
                 break;
             case 'translationValue':
                 // Валидация для перевода на русский: только кирилицца и пробелы
@@ -62,25 +77,25 @@ export default function TableRow(props) {
 
     // Кнопка Отмены - функция закрывает редактирование, все поля возвращаются к изначальному значению
     function cancelEditing() {
-        setState({
-            wordValue: english,
-            transcriptionValue: transcription,
-            translationValue: russian
-        })
-        handleEditing()
+        resetInputsState();
+        resetIsValid();
+        handleEditing();
     }
 
     // Кнопка сохранения
     function saveEditing() {
         //вывод параметров формы
-        console.log(state)
+        console.log(state);
         //закрытие формы
-        handleEditing()
+        handleEditing();
+        resetIsValid();
     }
 
-    //управление состоянием кнопки Save
+    // Управление состоянием кнопки Save
     useEffect(() => {
         if (state.wordValue === '' || state.transcriptionValue === '' || state.translationValue === '') {
+            setSaveIsDisabled(true)
+        } else if (!isValid.wordValue || !isValid.transcriptionValue || !isValid.translationValue) {
             setSaveIsDisabled(true)
         } else {
             setSaveIsDisabled(false)
@@ -91,16 +106,15 @@ export default function TableRow(props) {
     if (edit) return (
         <tr>
             <td>
-                <Input name="wordValue" value={state.wordValue} onChange={handleChange} />
-                {!isValid.wordValue && <p className="error-text">Only Latin letters and spaces are allowed!</p>}
+                <Input name="wordValue" value={state.wordValue} onChange={handleChange} isError={isValid.wordValue} />
+                {!isValid.wordValue && <p className="error-text">Only Latin letters and spaces are allowed.</p>}
             </td>
             <td>
-                <Input name="transcriptionValue" value={state.transcriptionValue} onChange={handleChange} />
-                {!isValid.transcriptionValue && <p className="error-text">Only Latin letters, spaces and special symbols are allowed!</p>}
+                <Input name="transcriptionValue" value={state.transcriptionValue} onChange={handleChange} isError={isValid.transcriptionValue} />
             </td>
             <td>
-                <Input name="translationValue" value={state.translationValue} onChange={handleChange} />
-                {!isValid.translationValue && <p className="error-text">Only Cyrillic letters and spaces are allowed!</p>}
+                <Input name="translationValue" value={state.translationValue} onChange={handleChange} isError={isValid.translationValue} />
+                {!isValid.translationValue && <p className="error-text">Only Cyrillic letters and spaces are allowed.</p>}
             </td>
             <td className="actions">
                 <button className="save-btn" {...(saveIsDisabled && { 'disabled': true })} onClick={saveEditing}>Save</button>
