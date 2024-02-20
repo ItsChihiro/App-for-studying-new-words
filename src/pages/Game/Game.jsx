@@ -14,7 +14,10 @@ export default function Game({ words }) {
             <h2>Word-learning simulator</h2>
             {(!start)
                 ? <MyButton onClick={handleClick}>Start</MyButton>
-                : <Slider words={words} />
+                : <>
+                    <Slider words={words} />
+                    <p>Изучено слов:</p>
+                </>
             }
         </div>
     );
