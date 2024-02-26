@@ -7,101 +7,47 @@ import Input from "../UI/input/Input";
 export default function TableRow(props) {
     const { english, transcription, russian } = props;
 
-    // Состояние кнопки Edit
+    // Состояние для редактирования, валидности и отключения кнопки сохранения
     const [edit, setEdit] = useState(false);
-
-    function handleEditing() {
-        setEdit(!edit);
-    }
-
-    // Состояние кнопки Save
     const [saveIsDisabled, setSaveIsDisabled] = useState(false);
-
-    // Состояние инпутов
     const [state, setState] = useState({
         wordValue: english,
         transcriptionValue: transcription,
         translationValue: russian
-    })
-
-    // Состояние, отвечающее за валидацию инпутов и показ ошибки
+    });
     const [isValid, setIsValid] = useState({
         wordValue: true,
         transcriptionValue: true,
         translationValue: true
     });
 
-    // Сброс состояния инпутов к изначальному
-    function resetInputsState() {
-        setState({
-            wordValue: english,
-            transcriptionValue: transcription,
-            translationValue: russian
-        });
-    }
+    // Сброс состояний к исходным
+    const resetState = () => {
+        setState({ wordValue: english, transcriptionValue: transcription, translationValue: russian });
+        setIsValid({ wordValue: true, transcriptionValue: true, translationValue: true });
+    };
 
-    // Сброс состояния валидации инпутов
-    function resetIsValid() {
-        setIsValid({
-            wordValue: true,
-            transcriptionValue: true,
-            translationValue: true
-        });
-    }
+    //переключение режима редактирования
+    const toggleEdit = () => setEdit(!edit);
 
-    // Ввод данных в инпуты и обновление состояний
+    //обработчик изменений в инпутах с валидацией
     const handleChange = (e) => {
-        let isValidInput = true;
         const { name, value } = e.target;
+        const patterns = {
+            wordValue: /^[a-zA-Z\s]*$/,
+            translationValue: /^[а-яА-Я\s]*$/
+        };
+        const isValidInput = patterns[name] ? patterns[name].test(value) : true;
 
-        // Выполнение проверок в зависимости от поля ввода
-        switch (name) {
-            case 'wordValue':
-                // Валидация для английского слова: только латинские буквы и пробелы
-                isValidInput = /^[a-zA-Z\s]*$/.test(value);
-                break;
-            case 'translationValue':
-                // Валидация для перевода на русский: только кирилицца и пробелы
-                isValidInput = /^[а-яА-Я\s]*$/.test(value);
-                break;
-            default:
-                break;
-        }
-
-        setIsValid({ ...isValid, [name]: isValidInput });
-        setState({
-            ...state,
-            [name]: value
-        });
+        setIsValid(prev => ({ ...prev, [name]: isValidInput }));
+        setState(prev => ({ ...prev, [name]: value }));
     }
 
-    // Кнопка Отмены - функция закрывает редактирование, все поля возвращаются к изначальному значению
-    function cancelEditing() {
-        resetInputsState();
-        resetIsValid();
-        handleEditing();
-    }
-
-    // Кнопка сохранения
-    function saveEditing() {
-        //вывод параметров формы
-        console.log(state);
-        //закрытие формы
-        handleEditing();
-        resetIsValid();
-    }
-
-    // Управление состоянием кнопки Save
+    //проверка и обновление состояния кнопки сохранения
     useEffect(() => {
-        if (state.wordValue === '' || state.transcriptionValue === '' || state.translationValue === '') {
-            setSaveIsDisabled(true)
-        } else if (!isValid.wordValue || !isValid.transcriptionValue || !isValid.translationValue) {
-            setSaveIsDisabled(true)
-        } else {
-            setSaveIsDisabled(false)
-        }
-    }, [state])
-
+        const isDisabled = Object.values(state).some(val => val === '') || Object.values(isValid).some(val => !val);
+        setSaveIsDisabled(isDisabled)
+    }, [state, isValid])
 
     if (edit) return (
         <tr>
@@ -117,8 +63,8 @@ export default function TableRow(props) {
                 {!isValid.translationValue && <p className="error-text">Only Cyrillic letters and spaces are allowed.</p>}
             </td>
             <td className="actions">
-                <button className="save-btn" {...(saveIsDisabled && { 'disabled': true })} onClick={saveEditing}>Save</button>
-                <button><img src={cancelImg} alt="Cancel" onClick={cancelEditing} title="Cancel" /></button>
+                <button className="save-btn" disabled={saveIsDisabled} onClick={() => { console.log(state); toggleEdit(); resetState(); }}>Save</button>
+                <button><img src={cancelImg} alt="Cancel" onClick={() => { resetState(); toggleEdit(); }} title="Cancel" /></button>
                 <button><img src={removeImg} alt="Remove" title="Remove" /></button>
             </td>
         </tr >
@@ -130,7 +76,7 @@ export default function TableRow(props) {
             <td>{transcription}</td>
             <td>{russian}</td>
             <td className="actions">
-                <button><img src={editImg} alt="Edit" onClick={handleEditing} title="Edit" /></button>
+                <button><img src={editImg} alt="Edit" onClick={toggleEdit} title="Edit" /></button>
                 <button><img src={removeImg} alt="Remove" title="Remove" /></button>
             </td>
         </tr>
