@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { MyContext } from '../../context/MyContext';
 import style from './Game.module.css'
 import Slider from '../../components/Slider/Slider';
 import MyButton from '../../components/UI/button/MyButton';
 
-export default function Game({ words }) {
+export default function Game() {
+    const { setDataServer, dataServer } = useContext(MyContext)
+
+
     const [start, setStart] = useState(false)
     function handleClick() {
         setStart(!start)
@@ -15,7 +19,7 @@ export default function Game({ words }) {
             {(!start)
                 ? <MyButton onClick={handleClick}>Start</MyButton>
                 : <>
-                    <Slider words={words} />
+                    <Slider words={dataServer} />
                     <p>Изучено слов:</p>
                 </>
             }
