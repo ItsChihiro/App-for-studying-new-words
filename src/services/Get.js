@@ -1,11 +1,10 @@
 class Get {
     static async getWords() {
-        try {
-            const resp = await fetch("http://itgirlschool.justmakeit.ru/api/words");
+        const resp = await fetch("http://itgirlschool.justmakeit.ru/api/words");
+        if (resp.ok) { //Проверяем, что код ответа 200
             return await resp.json();
-        } catch (e) {
-            console.error(e)
-            return false
+        } else {
+            throw new Error('Something went wrong ...');
         }
     }
 }
