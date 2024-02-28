@@ -1,9 +1,7 @@
 import cl from './App.module.css'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import Slider from '../Slider/Slider'
 import TableWords from '../TableWords/TableWords'
-import { words } from '../constants'
 
 import { Error, Game } from '../../pages'
 
@@ -20,8 +18,8 @@ export default function App() {
         <Header />
         <main>
           <Routes>
-            <Route path='/' element={<TableWords words={words} />} />
-            <Route path='/game' element={<Game words={words} />} />
+            <Route path='/' element={<TableWords />} />
+            <Route path='/game' element={<Game />} />
             <Route path='*' element={<Error />} />
           </Routes>
         </main>
