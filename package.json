@@ -26,5 +26,6 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "sass": "^1.69.5",
     "vite": "^5.0.8"
-  }
+  },
+  "proxy": "http://itgirlschool.justmakeit.ru"
 }
