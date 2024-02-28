@@ -1,16 +1,15 @@
 import TableRow from '../TableRow/TableRow';
 import './TableWords.scss'
-import { useState } from 'react';
+import { MyContext } from '../../context/MyContext';
+import { useState, useContext } from 'react';
 
-export default function TableWords({ words }) {
-    const [wordsList, setWordsList] = useState(words)
+export default function TableWords() {
+    const { setDataServer, dataServer } = useContext(MyContext)
 
-    const rows = wordsList.map((row) => {
+    const rows = dataServer.map((row) => {
         return <TableRow
             {...row}
             key={row.id}
-            wordsList={wordsList}
-            setWordsList={setWordsList}
         />
     })
 
