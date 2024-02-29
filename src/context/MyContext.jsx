@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import Get from "../services/Get"
+import Get from "../services/Api"
 import Loader from '../components/UI/Loader/Loader';
 import '../components/UI/Loader/Loader.scss'
 import { useFetching } from '../hooks/useFetching'
@@ -7,14 +7,13 @@ import { useFetching } from '../hooks/useFetching'
 export const MyContext = createContext();
 
 export function MyContextComponent({ children }) {
-    // const [isLoading, setIsLoading] = useState(false);
     const [getWordsServer, isLoading, error] = useFetching(async () => {
         const wordsServer = await Get.getWords();
         setDataServer(wordsServer);
     })
     const [dataServer, setDataServer] = useState(false);
 
-    const value = { dataServer, setDataServer };
+    const value = { dataServer, setDataServer, getWordsServer };
 
 
     //при первичной отрисовке подгружается список слов
@@ -29,7 +28,7 @@ export function MyContextComponent({ children }) {
     }
 
     return (
-        <MyContext.Provider value={value} >
+        <MyContext.Provider value={value}>
             {children}
         </MyContext.Provider>
     )

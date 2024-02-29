@@ -2,7 +2,6 @@ import cl from './App.module.css'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import TableWords from '../TableWords/TableWords'
-
 import { Error, Game } from '../../pages'
 
 import {
@@ -10,6 +9,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
 
 export default function App() {
   return (
