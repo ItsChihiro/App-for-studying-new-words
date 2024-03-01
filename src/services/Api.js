@@ -63,7 +63,7 @@ class Api {
 
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, options);
         if (resp.ok) { //Проверяем, что код ответа 200
-            return await resp.json();
+            // return await resp.json();
             return data;
         } else {
             throw new Error('Failed to fetch data...');
