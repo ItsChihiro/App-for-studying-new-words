@@ -5,7 +5,7 @@ import removeImg from '../../assets/images/remove.png';
 import Input from "../UI/input/Input";
 
 export default function TableRow(props) {
-    const { english, transcription, russian } = props;
+    const { english, transcription, russian, deleteWord, updateWord, id } = props;
 
     // Состояние для редактирования, валидности и отключения кнопки сохранения
     const [edit, setEdit] = useState(false);
@@ -49,6 +49,10 @@ export default function TableRow(props) {
         setSaveIsDisabled(isDisabled)
     }, [state, isValid])
 
+
+    const removeBtn = <button><img src={removeImg} alt="Remove" title="Remove" onClick={() => { deleteWord(id); console.log(id); }} /></button>
+
+
     if (edit) return (
         <tr>
             <td>
@@ -63,9 +67,11 @@ export default function TableRow(props) {
                 {!isValid.translationValue && <p className="error-text">Only Cyrillic letters and spaces are allowed.</p>}
             </td>
             <td className="actions">
-                <button className="save-btn" disabled={saveIsDisabled} onClick={() => { console.log(state); toggleEdit(); resetState(); }}>Save</button>
+                <button className="save-btn" disabled={saveIsDisabled} onClick={() => { updateWord(id, state); console.log(state); toggleEdit(); resetState(); }}>Save</button>
+
                 <button><img src={cancelImg} alt="Cancel" onClick={() => { resetState(); toggleEdit(); }} title="Cancel" /></button>
-                <button><img src={removeImg} alt="Remove" title="Remove" /></button>
+
+                {removeBtn}
             </td>
         </tr >
     )
@@ -77,7 +83,7 @@ export default function TableRow(props) {
             <td>{russian}</td>
             <td className="actions">
                 <button><img src={editImg} alt="Edit" onClick={toggleEdit} title="Edit" /></button>
-                <button><img src={removeImg} alt="Remove" title="Remove" /></button>
+                {removeBtn}
             </td>
         </tr>
     );
