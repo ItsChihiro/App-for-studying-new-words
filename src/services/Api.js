@@ -19,13 +19,14 @@ class Api {
     }
 
 
-    static async addWord(id, data) {
-        data = {
-            id: state.id,
-            english: state.english,
-            transcription: state.transcription,
-            russian: state.russian,
-            tags: state.tags,
+    static async addWord(wordData) {
+        const data = {
+            id: wordData.id,
+            english: wordData.word,
+            transcription: wordData.transcription,
+            russian: wordData.translation,
+            // tags: wordData.tags,
+            // tags_json: wordData.tags_json,
         }
 
         const options = {
@@ -36,7 +37,7 @@ class Api {
             }
         };
 
-        const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/add`, options);
+        const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/add`, options);
         if (resp.ok) { //Проверяем, что код ответа 200
             // return await resp.json();
             return data;
@@ -46,11 +47,11 @@ class Api {
     }
 
 
-    static async updateWord(id, data) {
-        data = {
-            english: data.wordValue,
-            transcription: data.transcriptionValue,
-            russian: data.translationValue,
+    static async updateWord(id, wordData) {
+        const data = {
+            english: wordData.wordValue,
+            transcription: wordData.transcriptionValue,
+            russian: wordData.translationValue,
         }
 
         const options = {
