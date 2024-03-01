@@ -1,7 +1,6 @@
 import cl from './App.module.css'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import TableWords from '../TableWords/TableWords'
 import { Error, Game, Home } from '../../pages'
 
 import {

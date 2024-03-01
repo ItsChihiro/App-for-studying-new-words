@@ -22,7 +22,7 @@ export default function TableRow(props) {
     });
 
     // Сброс состояний к исходным
-    const resetState = () => {
+    function resetState() {
         setState({ wordValue: english, transcriptionValue: transcription, translationValue: russian });
         setIsValid({ wordValue: true, transcriptionValue: true, translationValue: true });
     };
