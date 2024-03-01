@@ -4,7 +4,7 @@
 .table-container {
     display: flex;
     justify-content: center;
-    padding: 5px 15px;
+    padding: 5px 0;
 }
 
 .table {
@@ -26,8 +26,6 @@ tr:hover {
 }
 
 td {
-    // border: 2px solid $blue;
-    // padding: 5px 20px;
     font-family: $font-1;
 }
 
