@@ -38,8 +38,8 @@ export default function TableWords() {
         />
     })
 
-
-    if (deleteError | updateError) { return <h1>Error happened "{deleteError | updateError}"</h1> }
+    if (deleteError) { return <h1>Error happened "{deleteError}"</h1> }
+    if (updateError) { return <h1>Error happened "{updateError}"</h1> }
     if (isDeleteLoading | isUpdateLoading) { return <div className='loader-wrap'><Loader /></div> }
 
     return (
