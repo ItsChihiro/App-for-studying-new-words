@@ -7,10 +7,13 @@ import { useFetching } from '../hooks/useFetching'
 export const MyContext = createContext();
 
 export function MyContextComponent({ children }) {
+
     const [getWordsServer, isLoading, error] = useFetching(async () => {
         const wordsServer = await Get.getWords();
         setDataServer(wordsServer);
     })
+
+
     const [dataServer, setDataServer] = useState(false);
 
     const value = { dataServer, setDataServer, getWordsServer };
