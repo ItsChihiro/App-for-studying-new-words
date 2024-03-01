@@ -9,19 +9,20 @@ import Loader from '../../components/UI/Loader/Loader';
 
 
 export default function Home(...props) {
-    const { setDataServer, dataServer, getWordsServer } = useContext(MyContext)
-
+    const { setDataServer, getWordsServer } = useContext(MyContext)
 
     //функция добавления слова
     const [addWord, isAddLoading, addError] = useFetching(async (data) => {
-        // const newWord = await Api.addWord(data)
-        // setDataServer([...dataServer, newWord])
+        // const newWord = await Api.addWord(data);
+        // setDataServer([...dataServer, newWord]);
 
         await Api.addWord(data)
         const wordsServer = getWordsServer();
         setDataServer(wordsServer);
     })
 
+
+    //состояния кнопки, инпутов, валидации инпутов
     const [isDisabled, setIsDisabled] = useState(false);
     const [state, setState] = useState({
         id: 12345,
@@ -49,11 +50,12 @@ export default function Home(...props) {
         setState(prev => ({ ...prev, [name]: value }));
     }
 
+    //управление формой для добавления нового слова с таблицу
     function handleClick(e) {
         e.preventDefault();
-        console.log(state)
-        addWord(state)
-        setState({ word: '', transcription: '', translation: '' })
+        console.log(state);
+        addWord(state);
+        setState({ id: '', word: '', transcription: '', translation: '' });
     }
 
     //проверка и обновление состояния кнопки сохранения
@@ -63,9 +65,9 @@ export default function Home(...props) {
     }, [state, isValid])
 
 
+
     if (addError) { return <h1>Error happened "{addError}"</h1> }
     if (isAddLoading) { return <div className='loader-wrap'><Loader /></div> }
-
 
     return (
         <div>
