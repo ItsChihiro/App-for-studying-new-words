@@ -19,9 +19,7 @@ class Api {
     }
 
 
-    static async addWord(state) {
-        // id = '15305'
-        // id = String(id)
+    static async addWord(id, data) {
         data = {
             id: state.id,
             english: state.english,
@@ -29,7 +27,7 @@ class Api {
             russian: state.russian,
             tags: state.tags,
         }
-        // console.log(id)
+
         const options = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -40,22 +38,19 @@ class Api {
 
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/add`, options);
         if (resp.ok) { //Проверяем, что код ответа 200
-            return await resp.json();
+            // return await resp.json();
+            return data;
         } else {
             throw new Error('Failed to fetch data...');
         }
     }
 
 
-    static async updateWord(id, state) {
-        // id = '15305'
-        // id = String(id)
-        console.log(id)
-
+    static async updateWord(id, data) {
         data = {
-            english: state.wordValue,
-            transcription: state.transcriptionValue,
-            russian: state.translationValue,
+            english: data.wordValue,
+            transcription: data.transcriptionValue,
+            russian: data.translationValue,
         }
 
         const options = {
@@ -69,6 +64,7 @@ class Api {
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, options);
         if (resp.ok) { //Проверяем, что код ответа 200
             return await resp.json();
+            return data;
         } else {
             throw new Error('Failed to fetch data...');
         }
@@ -76,8 +72,6 @@ class Api {
 
 
     static async deleteWord(id) {
-        // id = '15305'
-        id = String(id)
         console.log(id)
         const options = {
             method: 'POST',
