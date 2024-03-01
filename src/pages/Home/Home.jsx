@@ -9,7 +9,7 @@ import Loader from '../../components/UI/Loader/Loader';
 
 
 export default function Home(...props) {
-    const { setDataServer, getWordsServer } = useContext(MyContext)
+    const { dataServer, setDataServer, getWordsServer } = useContext(MyContext)
 
     //функция добавления слова
     const [addWord, isAddLoading, addError] = useFetching(async (data) => {
@@ -24,8 +24,8 @@ export default function Home(...props) {
 
     //состояния кнопки, инпутов, валидации инпутов
     const [isDisabled, setIsDisabled] = useState(false);
+    // const newWordId = dataServer.length + 1;
     const [state, setState] = useState({
-        id: 12345,
         word: '',
         transcription: '',
         translation: ''
@@ -50,12 +50,26 @@ export default function Home(...props) {
         setState(prev => ({ ...prev, [name]: value }));
     }
 
+    // функция генерации уникального id
+    function generateUniqueId(data) {
+        let ids = data.map(item => item.id);
+        let newId;
+        do {
+            newId = Math.floor(Math.random() * 100000) + 1;
+        } while (ids.includes(newId));
+        return newId;
+    }
+
     //управление формой для добавления нового слова с таблицу
     function handleClick(e) {
         e.preventDefault();
-        console.log(state);
-        addWord(state);
-        setState({ id: '', word: '', transcription: '', translation: '' });
+        //создание id для нового слова
+        const newId = generateUniqueId(dataServer);
+        const newWord = { id: newId, ...state }
+        // console.log(newWord)
+        // console.log(state);
+        addWord(newWord);
+        setState({ word: '', transcription: '', translation: '' });
     }
 
     //проверка и обновление состояния кнопки сохранения

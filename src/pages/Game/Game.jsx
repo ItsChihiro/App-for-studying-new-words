@@ -5,7 +5,7 @@ import Slider from '../../components/Slider/Slider';
 import MyButton from '../../components/UI/button/MyButton';
 
 export default function Game() {
-    const { setDataServer, dataServer } = useContext(MyContext)
+    const { dataServer } = useContext(MyContext)
 
 
     const [start, setStart] = useState(false)
