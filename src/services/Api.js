@@ -11,7 +11,7 @@ class Api {
 
     static async getIdWord(id) {
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}`);
-        if (resp.ok) { //Проверяем, что код ответа 200
+        if (resp.ok) {
             return await resp.json();
         } else {
             throw new Error('Failed to fetch data...');
@@ -38,9 +38,10 @@ class Api {
         };
 
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/add`, options);
-        if (resp.ok) { //Проверяем, что код ответа 200
-            // return await resp.json();
-            return data;
+        if (resp.ok) {
+            //проблема с отправкой на сервер CORS error
+            return await resp.json();
+            // return data;
         } else {
             throw new Error('Failed to fetch data...');
         }
@@ -63,7 +64,8 @@ class Api {
         };
 
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, options);
-        if (resp.ok) { //Проверяем, что код ответа 200
+        if (resp.ok) {
+            //проблема с отправкой на сервер
             // return await resp.json();
             return data;
         } else {
@@ -82,7 +84,7 @@ class Api {
         };
 
         const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/delete`, options);
-        if (resp.ok) { //Проверяем, что код ответа 200
+        if (resp.ok) {
             return await resp.json();
         } else {
             throw new Error('Failed to fetch data...');

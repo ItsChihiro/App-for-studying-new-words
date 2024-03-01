@@ -3,7 +3,8 @@ import './Input.scss';
 
 const Input = forwardRef(({ value, isError, ...props }, ref) => {
     let inputClass = `input`
-    if (value === '' || !isError) inputClass += ` input_red`;
+    // if (value === '' || !isError) inputClass += ` input_red`;
+    if (!isError) inputClass += ` input_red`;
 
     return (
         <input type="text" ref={ref} value={value} className={inputClass} {...props}>
