@@ -2,7 +2,7 @@ import cl from './App.module.css'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import TableWords from '../TableWords/TableWords'
-import { Error, Game } from '../../pages'
+import { Error, Game, Home } from '../../pages'
 
 import {
   BrowserRouter as Router,
@@ -18,7 +18,7 @@ export default function App() {
         <Header />
         <main>
           <Routes>
-            <Route path='/' element={<TableWords />} />
+            <Route path='/' element={<Home />} />
             <Route path='/game' element={<Game />} />
             <Route path='*' element={<Error />} />
           </Routes>
