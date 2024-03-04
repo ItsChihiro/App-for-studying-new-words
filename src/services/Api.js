@@ -1,6 +1,8 @@
 class Api {
     static async getWords() {
-        const resp = await fetch("http://itgirlschool.justmakeit.ru/api/words");
+        const resp = await fetch("api/words");
+        console.log(resp);
+
         if (resp.ok) { //Проверяем, что код ответа 200
             return await resp.json();
         } else {
@@ -10,7 +12,7 @@ class Api {
 
 
     static async getIdWord(id) {
-        const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}`);
+        const resp = await fetch(`api/words/${id}`);
         if (resp.ok) {
             return await resp.json();
         } else {
@@ -37,9 +39,8 @@ class Api {
             }
         };
 
-        const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/add`, options);
+        const resp = await fetch(`/api/words/add`, options);
         if (resp.ok) {
-            //проблема с отправкой на сервер CORS error
             return await resp.json();
             // return data;
         } else {
@@ -63,7 +64,7 @@ class Api {
             }
         };
 
-        const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, options);
+        const resp = await fetch(`/api/words/${id}/update`, options);
         if (resp.ok) {
             //проблема с отправкой на сервер
             // return await resp.json();
@@ -83,7 +84,7 @@ class Api {
             }
         };
 
-        const resp = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/delete`, options);
+        const resp = await fetch(`/api/words/${id}/delete`, options);
         if (resp.ok) {
             return await resp.json();
         } else {
