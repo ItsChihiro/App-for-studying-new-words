@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { MyContext } from '../../context/MyContext';
+import React, { useState, useEffect } from 'react';
+import { inject, observer } from 'mobx-react';
 import style from './Game.module.css'
 import Slider from '../../components/Slider/Slider';
 import MyButton from '../../components/UI/button/MyButton';
 
-export default function Game() {
-    const { dataServer } = useContext(MyContext)
-
+function Game({ words }) {
 
     const [start, setStart] = useState(false)
     function handleClick() {
@@ -19,11 +17,23 @@ export default function Game() {
             {(!start)
                 ? <MyButton onClick={handleClick}>Start</MyButton>
                 : <>
-                    <Slider words={dataServer} />
+                    <Slider words={words} />
                     <p>Изучено слов:</p>
                 </>
             }
         </div>
     );
-}
+};
+
+
+export default inject(({ wordsStore }) => {
+    const { words, loadData } = wordsStore;
+    useEffect(() => {
+        loadData();
+    }, [])
+
+    return {
+        words, loadData
+    };
+})(observer(Game));
 
