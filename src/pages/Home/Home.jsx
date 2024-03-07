@@ -1,30 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import { inject, observer } from 'mobx-react';
 import TableWords from '../../components/TableWords/TableWords';
 import MyButton from '../../components/UI/button/MyButton';
 import Input from '../../components/UI/input/Input';
-import { MyContext } from '../../context/MyContext';
-import { useFetching } from '../../hooks/useFetching';
-import Api from '../../services/Api';
 import Loader from '../../components/UI/Loader/Loader';
 
 
-export default function Home(...props) {
-    const { dataServer, setDataServer, getWordsServer } = useContext(MyContext)
-
-    //функция добавления слова
-    const [addWord, isAddLoading, addError] = useFetching(async (data) => {
-        // const newWord = await Api.addWord(data);
-        // setDataServer([...dataServer, newWord]);
-
-        await Api.addWord(data)
-        const wordsServer = getWordsServer();
-        setDataServer(wordsServer);
-    })
-
+function Home({ words, add, isLoading, error }) {
 
     //состояния кнопки, инпутов, валидации инпутов
     const [isDisabled, setIsDisabled] = useState(false);
-    // const newWordId = dataServer.length + 1;
     const [state, setState] = useState({
         word: '',
         transcription: '',
@@ -64,11 +49,11 @@ export default function Home(...props) {
     function handleClick(e) {
         e.preventDefault();
         //создание id для нового слова
-        const newId = generateUniqueId(dataServer);
+        const newId = generateUniqueId(words);
         const newWord = { id: newId, ...state }
         // console.log(newWord)
         // console.log(state);
-        addWord(newWord);
+        add(newWord);
         setState({ word: '', transcription: '', translation: '' });
     }
 
@@ -79,9 +64,8 @@ export default function Home(...props) {
     }, [state, isValid])
 
 
-
-    if (addError) { return <h1>Error happened "{addError}"</h1> }
-    if (isAddLoading) { return <div className='loader-wrap'><Loader /></div> }
+    // if (error) { return <h1>Error happened "{error}"</h1> }
+    // if (isLoading) { return <div className='loader-wrap'><Loader /></div> }
 
     return (
         <div>
@@ -100,5 +84,18 @@ export default function Home(...props) {
             <TableWords />
         </div>
     );
-}
+};
+
+
+export default inject(({ wordsStore }) => {
+    const { words, loadData, add, isLoading, error, update } = wordsStore;
+
+    useEffect(() => {
+        loadData();
+    }, [])
+
+    return {
+        words, loadData, add, isLoading, error
+    };
+})(observer(Home));
 
